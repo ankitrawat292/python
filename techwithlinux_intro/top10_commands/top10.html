@@ -1,0 +1,437 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Top 10 Linux Commands</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const W = 1920, H = 1080;
+const INTRO = 7, SEG = 6.5, OUTRO = 6.5;
+
+// ---------- content ----------
+const P = 'techwith@linux:~$ ';
+const COMMANDS = [
+  { n: 10, cmd: 'pwd', title: 'Print Working Directory', sub: 'Abhi aap kis folder mein ho? pwd turant bata deta hai.',
+    term: [{ c: 'pwd' }, { o: '/home/techwith/projects' }, { c: 'pwd -P' }, { o: '/home/techwith/projects' }] },
+  { n: 9, cmd: 'mkdir', title: 'Make Directory', sub: 'Naya folder banao. -p se poora path ek saath ban jata hai.',
+    term: [{ c: 'mkdir linux-notes' }, { c: 'mkdir -p projects/web/css' }, { c: 'ls' }, { o: 'linux-notes  projects', col: '#5cc8ff' }] },
+  { n: 8, cmd: 'cat', title: 'Show File Content', sub: 'File ka content seedha terminal mein dekho, bina editor khole.',
+    term: [{ c: 'cat hello.txt' }, { o: 'Hello from TechWith Linux!' }, { o: 'Roz ek naya command seekho.' }] },
+  { n: 7, cmd: 'cp', title: 'Copy Files & Folders', sub: 'File copy karo. Folder copy karna ho to -r lagana mat bhoolna.',
+    term: [{ c: 'cp notes.txt backup.txt' }, { c: 'cp -r projects/ projects_bak/' }, { c: 'ls' }, { o: 'backup.txt  notes.txt  projects  projects_bak', col: '#5cc8ff' }] },
+  { n: 6, cmd: 'mv', title: 'Move & Rename', sub: 'File move bhi karo aur rename bhi - dono ek hi command se.',
+    term: [{ c: 'mv old.txt new.txt' }, { c: 'mv new.txt ~/Documents/' }, { c: 'ls ~/Documents' }, { o: 'new.txt', col: '#5cc8ff' }] },
+  { n: 5, cmd: 'rm', title: 'Remove Files', sub: 'File delete karta hai. Dhyan se! Linux mein Recycle Bin nahi hota.',
+    term: [{ c: 'rm temp.log' }, { c: 'rm -r old_folder/' }, { c: 'rm -rf /' }, { o: '!! KABHI MAT CHALANA - poora system delete !!', col: '#ff4d4d' }] },
+  { n: 4, cmd: 'chmod', title: 'Change Permissions', sub: 'Permissions badlo. Script chalani ho to pehle chmod +x karo.',
+    term: [{ c: 'ls -l script.sh' }, { o: '-rw-r--r-- 1 techwith techwith 120 script.sh' }, { c: 'chmod +x script.sh' }, { c: './script.sh' }, { o: 'Script chal gayi!', col: '#7CFC00' }] },
+  { n: 3, cmd: 'grep', title: 'Search Inside Files', sub: 'Hazaron lines mein se kaam ki line seconds mein dhoondho.',
+    term: [{ c: 'grep "error" app.log' }, { o: '[12:01] error: disk full', col: '#ff6b6b' }, { o: '[12:07] error: connection lost', col: '#ff6b6b' }, { c: 'grep -ri "todo" src/' }, { o: 'src/main.py: # TODO: add login' }] },
+  { n: 2, cmd: 'cd', title: 'Change Directory', sub: 'Folder ke andar jao. cd .. se peeche, cd ~ se seedha home.',
+    term: [{ c: 'cd projects' }, { c: 'pwd', p: 'techwith@linux:~/projects$ ' }, { o: '/home/techwith/projects' }, { c: 'cd ..', p: 'techwith@linux:~/projects$ ' }, { c: 'cd ~' }] },
+  { n: 1, cmd: 'ls', title: 'List Files', sub: 'Folder mein kya-kya hai sab dikhata hai. ls -la se hidden files bhi.',
+    term: [{ c: 'ls' }, { o: 'Desktop  Documents  Downloads  projects', col: '#5cc8ff' }, { c: 'ls -la' }, { o: 'drwxr-xr-x  .        drwxr-xr-x  ..' }, { o: '-rw-r--r--  .bashrc  -rw-r--r--  .profile' }] },
+];
+const OUTRO_START = INTRO + COMMANDS.length * SEG;
+window.DURATION = OUTRO_START + OUTRO;
+
+// sound events (exported for the soundtrack generator)
+const EVENTS = [];
+const ev = (t, type) => EVENTS.push({ t: +t.toFixed(3), type });
+
+// terminal schedules
+const CPS = 22;
+COMMANDS.forEach((C, i) => {
+  const s0 = INTRO + i * SEG;
+  let u = 0.9;
+  C.term.forEach(L => {
+    if (L.c) {
+      L.t0 = u; L.t1 = u + L.c.length / CPS;
+      for (let k = 0; k < L.c.length; k++) ev(s0 + u + k / CPS, 'type');
+      u = L.t1 + 0.28; ev(s0 + u - 0.05, 'enter');
+    } else { L.t0 = L.t1 = u; ev(s0 + u, 'out'); u += 0.12; }
+  });
+  ev(s0, 'whoosh');
+  ev(s0 + 0.35, 'impact_small');
+  ev(s0 + 5.95, 'whoosh_out');
+});
+ev(2.5, 'whoosh'); ev(2.85, 'impact');
+ev(OUTRO_START, 'whoosh'); ev(OUTRO_START + 2.6, 'impact');
+ev(OUTRO_START + 3.6, 'sparkle');
+window.EVENTS = EVENTS;
+
+// ---------- renderer ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x02040a);
+scene.fog = new THREE.Fog(0x02040a, 20, 75);
+const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 200);
+scene.add(camera);
+
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const seg = (t, a, b) => clamp01((t - a) / (b - a));
+const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
+const easeInCubic = x => x * x * x;
+const easeInOutCubic = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeOutBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const tiny = v => Math.max(.0001, v);
+let seed = 1337;
+const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+// ---------- lights ----------
+scene.add(new THREE.AmbientLight(0x8899bb, 0.6));
+const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(5, 8, 10); scene.add(key);
+const rimC = new THREE.PointLight(0x00e5ff, 60, 30); rimC.position.set(-8, 3, -4); scene.add(rimC);
+const rimO = new THREE.PointLight(0xff8a00, 60, 30); rimO.position.set(8, -2, -3); scene.add(rimO);
+
+// ---------- environment ----------
+const grid = new THREE.GridHelper(240, 120, 0x00e5ff, 0x0a3d62);
+grid.position.y = -3.6; grid.material.transparent = true; grid.material.opacity = 0.5;
+scene.add(grid);
+const starGeo = new THREE.BufferGeometry();
+const NS = 2500, spos = new Float32Array(NS * 3);
+for (let i = 0; i < NS; i++) { spos[i * 3] = (rand() - .5) * 120; spos[i * 3 + 1] = (rand() - .2) * 60; spos[i * 3 + 2] = (rand() - .5) * 120; }
+starGeo.setAttribute('position', new THREE.BufferAttribute(spos, 3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x9fdcff, size: 0.12, transparent: true, opacity: .9 }));
+scene.add(stars);
+const cubes = new THREE.Group(); scene.add(cubes);
+for (let i = 0; i < 45; i++) {
+  const s = .15 + rand() * .35;
+  const m = new THREE.Mesh(new THREE.BoxGeometry(s, s, s),
+    new THREE.MeshStandardMaterial({ color: rand() > .5 ? 0x00e5ff : 0xff8a00, emissive: 0x003344, wireframe: rand() > .5, metalness: .6, roughness: .3 }));
+  m.position.set((rand() - .5) * 34, (rand() - .5) * 16, -6 - rand() * 22);
+  m.userData = { sx: rand() * 2, sy: rand() * 2, ph: rand() * 6, y0: m.position.y };
+  cubes.add(m);
+}
+
+// ---------- canvas-plane helper ----------
+function textPlane(wUnits, cw, ch, draw, opts = {}) {
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+  const ctx = cv.getContext('2d'); draw(ctx, cw, ch);
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthTest: opts.depthTest ?? true, fog: false });
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(wUnits, wUnits * ch / cw), mat);
+  if (opts.hud) m.renderOrder = 999;
+  return m;
+}
+const FONT = '"Inter", "DejaVu Sans", sans-serif';
+// shrink font until text fits maxW
+function fitFont(c, text, maxW, size, weight) {
+  let s = size; c.font = `${weight} ${s}px ${FONT}`;
+  while (c.measureText(text).width > maxW && s > 10) { s -= 2; c.font = `${weight} ${s}px ${FONT}`; }
+}
+
+// ---------- terminal ----------
+const termCanvas = document.createElement('canvas'); termCanvas.width = 1280; termCanvas.height = 720;
+const tctx = termCanvas.getContext('2d');
+const termTex = new THREE.CanvasTexture(termCanvas); termTex.colorSpace = THREE.SRGBColorSpace; termTex.anisotropy = 8;
+const term = new THREE.Group(); scene.add(term);
+const tframe = new THREE.Mesh(new RoundedBoxGeometry(7.4, 4.35, .25, 4, .12),
+  new THREE.MeshStandardMaterial({ color: 0x111827, metalness: .8, roughness: .3, emissive: 0x00222a }));
+tframe.position.z = -.14; term.add(tframe);
+term.add(new THREE.Mesh(new THREE.PlaneGeometry(7.2, 4.05), new THREE.MeshBasicMaterial({ map: termTex, toneMapped: false })));
+function drawTerminal(lines, u, title) {
+  const c = tctx;
+  c.fillStyle = '#05080f'; c.fillRect(0, 0, 1280, 720);
+  c.fillStyle = '#1f2937'; c.fillRect(0, 0, 1280, 56);
+  ['#ff5f56', '#ffbd2e', '#27c93f'].forEach((col, i) => { c.fillStyle = col; c.beginPath(); c.arc(36 + i * 36, 28, 11, 0, 7); c.fill(); });
+  c.fillStyle = '#cbd5e1'; c.font = '26px "DejaVu Sans Mono", monospace'; c.textAlign = 'center'; c.fillText(title, 640, 37); c.textAlign = 'left';
+  c.font = 'bold 36px "DejaVu Sans Mono", monospace';
+  let y = 125, cx = 40, cy = 120, typing = false;
+  for (const L of lines) {
+    if (u < L.t0) break;
+    if (L.c !== undefined) {
+      const p = L.p || P;
+      const n = Math.floor(clamp01((u - L.t0) / Math.max(.001, L.t1 - L.t0)) * L.c.length);
+      c.fillStyle = '#7CFC00'; c.shadowColor = '#7CFC00'; c.shadowBlur = 8; c.fillText(p, 40, y);
+      const pw = c.measureText(p).width;
+      c.fillStyle = '#ffffff'; c.shadowColor = '#9fdcff'; c.fillText(L.c.slice(0, n), 40 + pw, y);
+      cx = 40 + pw + c.measureText(L.c.slice(0, n)).width; cy = y; typing = u < L.t1 + .28;
+    } else {
+      c.fillStyle = L.col || '#c9d6e3'; c.shadowColor = L.col || '#5cc8ff'; c.shadowBlur = 6; c.fillText(L.o, 40, y);
+      cx = 40; cy = y + 62; typing = false;
+    }
+    y += 62;
+  }
+  c.shadowBlur = 0;
+  if (!typing) { // idle prompt after last line
+    const last = lines.filter(L => u >= L.t0).pop();
+    if (last && u > (last.t1 || 0) + .28) { c.fillStyle = '#7CFC00'; c.fillText(P, 40, y); cx = 40 + c.measureText(P).width; cy = y; }
+  }
+  if (typing || Math.floor(u * 3) % 2 === 0) { c.fillStyle = '#7CFC00'; c.fillRect(cx + 4, cy - 28, 18, 36); }
+  c.fillStyle = 'rgba(0,0,0,0.16)'; for (let s = 0; s < 720; s += 4) c.fillRect(0, s, 1280, 2);
+  termTex.needsUpdate = true;
+}
+
+// ---------- Tux ----------
+const black = new THREE.MeshStandardMaterial({ color: 0x16181d, roughness: .35, metalness: .1 });
+const white = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, roughness: .4 });
+const yellow = new THREE.MeshStandardMaterial({ color: 0xffb300, roughness: .35, emissive: 0x332200 });
+const sph = (mat, sx, sy, sz, x, y, z) => { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), mat); m.scale.set(sx, sy, sz); m.position.set(x, y, z); return m; };
+const tux = new THREE.Group();
+tux.add(sph(black, 1.25, 1.55, 1.1, 0, 0, 0), sph(white, 1.0, 1.3, .8, 0, -.15, .42), sph(black, .85, .8, .8, 0, 1.75, .05),
+  sph(white, .28, .38, .2, -.24, 1.88, .66), sph(white, .28, .38, .2, .24, 1.88, .66),
+  sph(black, .1, .14, .08, -.2, 1.88, .83), sph(black, .1, .14, .08, .2, 1.88, .83),
+  sph(yellow, .42, .15, .35, 0, 1.55, .8), sph(yellow, .55, .18, .75, -.6, -1.55, .35), sph(yellow, .55, .18, .75, .6, -1.55, .35));
+const wingL = new THREE.Group(), wingR = new THREE.Group();
+wingL.add(sph(black, .3, 1.0, .5, 0, -.9, 0)); wingL.position.set(-1.15, .6, 0);
+wingR.add(sph(black, .3, 1.0, .5, 0, -.9, 0)); wingR.position.set(1.15, .6, 0);
+tux.add(wingL, wingR);
+const tuxRoot = new THREE.Group(); tuxRoot.add(tux); scene.add(tuxRoot);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(2.6, .06, 16, 128), new THREE.MeshBasicMaterial({ color: 0x00e5ff, toneMapped: false }));
+const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.9, .035, 16, 128), new THREE.MeshBasicMaterial({ color: 0xff8a00, toneMapped: false }));
+tuxRoot.add(ring, ring2);
+
+// ---------- 3D text ----------
+const font = await new Promise(r => new FontLoader().load('./node_modules/three/examples/fonts/helvetiker_bold.typeface.json', r));
+const matWhite = new THREE.MeshStandardMaterial({ color: 0xe6f7ff, metalness: .4, roughness: .25, emissive: 0x0a3a4a });
+const matOrange = new THREE.MeshStandardMaterial({ color: 0xffa000, metalness: .5, roughness: .2, emissive: 0x552200 });
+const matCyan = new THREE.MeshStandardMaterial({ color: 0x00d8ff, metalness: .5, roughness: .2, emissive: 0x004a5a });
+function makeWord(str, size, depth, mat, y, x0, align = 'left') {
+  const scale = size / font.data.resolution;
+  const letters = []; let x = 0;
+  for (const ch of str) {
+    const adv = font.data.glyphs[ch].ha * scale + size * 0.04;
+    if (ch !== ' ') {
+      const geo = new TextGeometry(ch, { font, size, depth, height: depth, curveSegments: 10, bevelEnabled: true, bevelThickness: .05, bevelSize: .035, bevelSegments: 4 });
+      geo.computeBoundingBox();
+      const cx = (geo.boundingBox.max.x + geo.boundingBox.min.x) / 2;
+      geo.translate(-cx, -size / 2, -depth / 2);
+      const m = new THREE.Mesh(geo, mat);
+      m.userData.home = new THREE.Vector3(x + cx, y, 0);
+      letters.push(m); scene.add(m);
+    }
+    x += adv;
+  }
+  const off = align === 'center' ? x0 - x / 2 : x0;
+  letters.forEach(m => m.userData.home.x += off);
+  letters.width = x;
+  return letters;
+}
+// in: letters fly from behind; out: letters shrink + rise
+function animLetters(letters, t, start, step, dur, outAt, idle = 0) {
+  letters.forEach((m, i) => {
+    const k = seg(t, start + i * step, start + i * step + dur);
+    const o = outAt == null ? 0 : seg(t, outAt + i * .025, outAt + i * .025 + .35);
+    m.visible = k > 0 && o < 1;
+    if (!m.visible) return;
+    const e = easeOutBack(k), h = m.userData.home;
+    m.position.set(h.x, h.y + (1 - easeOutCubic(k)) * 4 + easeInCubic(o) * 3, lerp(-25, 0, easeOutCubic(k)) + o * 4);
+    m.rotation.set((1 - e) * -Math.PI, (1 - e) * Math.PI * 1.5 + Math.sin(t * 2 + i * .5) * .08 * idle, 0);
+    m.scale.setScalar(tiny(e * (1 - easeInCubic(o))));
+  });
+}
+
+// intro
+const hook = textPlane(11, 2048, 560, (c, w, h) => {
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  fitFont(c, 'Linux seekhna hai?', w - 120, 150, 800); c.fillStyle = '#e8eef3'; c.shadowColor = '#00e5ff'; c.shadowBlur = 30;
+  c.fillText('Linux seekhna hai?', w / 2, 150);
+  fitFont(c, 'Ye 10 Commands ZAROOR aane chahiye!', w - 120, 118, 800); c.fillStyle = '#ffae1a'; c.shadowColor = '#ff7a00';
+  c.fillText('Ye 10 Commands ZAROOR aane chahiye!', w / 2, 400);
+});
+hook.position.set(0, .6, 0); scene.add(hook);
+const introTop = makeWord('TOP 10', 1.9, .6, matCyan, 1.7, -3.0);
+const introSub = makeWord('LINUX COMMANDS', .9, .35, matOrange, -.35, -3.0);
+const introTag = textPlane(9, 2048, 180, (c, w, h) => {
+  c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = `700 92px ${FONT}`;
+  c.fillStyle = '#cfefff'; c.shadowColor = '#00e5ff'; c.shadowBlur = 16;
+  c.fillText('Beginners ke liye  •  Hindi mein', 10, 90);
+});
+introTag.position.set(-3.0 + 4.5, -1.8, .2); scene.add(introTag);
+const thumbBadge = textPlane(4.4, 1024, 260, (c, w, h) => {
+  c.fillStyle = '#ffd400'; c.beginPath(); c.roundRect(8, 8, w - 16, h - 16, 40); c.fill();
+  c.fillStyle = '#111'; c.font = `900 120px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('MUST KNOW!', w / 2, h / 2 + 6);
+});
+thumbBadge.position.set(5.6, 3.7, 1); thumbBadge.rotation.z = .1; thumbBadge.visible = false; scene.add(thumbBadge);
+
+// command segments
+const LEFT = -7.4;
+COMMANDS.forEach(C => {
+  C.num = makeWord('#' + C.n, 1.15, .35, matCyan, 2.1, LEFT);
+  C.word = makeWord(C.cmd, C.cmd.length > 3 ? 1.8 : 2.4, .8, matOrange, C.cmd.length > 3 ? .1 : .3, LEFT);
+  C.label = textPlane(7, 1400, 150, (c, w, h) => {
+    c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = `700 84px ${FONT}`;
+    c.fillStyle = '#d9f4ff'; c.shadowColor = '#00e5ff'; c.shadowBlur = 14; c.fillText(C.title, 6, 78);
+  });
+  C.label.position.set(LEFT + 3.5, -2.45, .3); scene.add(C.label);
+  C.subPlane = textPlane(4.1, 2048, 170, (c, w, h) => {
+    c.fillStyle = 'rgba(4,10,20,0.82)'; c.beginPath(); c.roundRect(4, 4, w - 8, h - 8, 34); c.fill();
+    c.fillStyle = '#00e5ff'; c.beginPath(); c.roundRect(4, 4, 22, h - 8, 11); c.fill();
+    fitFont(c, C.sub, w - 140, 66, 600); c.fillStyle = '#e3ebf2'; c.textBaseline = 'middle'; c.textAlign = 'center';
+    c.fillText(C.sub, w / 2 + 10, h / 2 + 2);
+  }, { hud: true, depthTest: false });
+  C.subPlane.position.set(0, -.98, -3); camera.add(C.subPlane);
+});
+const bar = new THREE.Mesh(new THREE.BoxGeometry(1, .08, .08), new THREE.MeshBasicMaterial({ color: 0x00e5ff, toneMapped: false }));
+scene.add(bar);
+
+// HUD watermark
+const water = textPlane(.95, 700, 110, (c) => {
+  c.font = `800 64px ${FONT}`; c.textBaseline = 'middle';
+  c.fillStyle = '#e6f7ff'; c.fillText('TechWith', 6, 56);
+  const w1 = c.measureText('TechWith ').width; c.fillStyle = '#ffa000'; c.fillText('LINUX', 6 + w1, 56);
+}, { hud: true, depthTest: false });
+water.position.set(-1.68, 1.08, -3); water.material.opacity = .85; camera.add(water);
+
+// outro
+const outW1 = makeWord('TechWith', 1.15, .45, matWhite, 1.15, -2.4);
+const outW2 = makeWord('LINUX', 2.0, .7, matOrange, -1.25, -2.4);
+const outTag = textPlane(9, 2048, 160, (c, w, h) => {
+  c.font = `600 80px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = '#cfefff'; c.shadowColor = '#00e5ff'; c.shadowBlur = 18; c.fillText('Like  •  Share  •  Subscribe', w / 2, 80);
+});
+outTag.position.set(1.8, -3.0, .3); scene.add(outTag);
+const outAsk = textPlane(12, 2048, 170, (c, w, h) => {
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  fitFont(c, 'Aapka favourite command kaunsa hai? Comment karo!', w - 100, 84, 800); c.fillStyle = '#ffd24d'; c.shadowColor = '#ff8a00'; c.shadowBlur = 20;
+  c.fillText('Aapka favourite command kaunsa hai? Comment karo!', w / 2, 85);
+});
+outAsk.position.set(.3, 4.1, 0); scene.add(outAsk);
+const sub = new THREE.Group();
+sub.add(new THREE.Mesh(new RoundedBoxGeometry(4.2, 1.0, .35, 6, .2), new THREE.MeshStandardMaterial({ color: 0xff1a1a, emissive: 0x550000, roughness: .3, metalness: .2 })));
+const subGeo = new TextGeometry('SUBSCRIBE', { font, size: .45, depth: .08, height: .08, curveSegments: 8 });
+subGeo.computeBoundingBox(); subGeo.translate(-(subGeo.boundingBox.max.x + subGeo.boundingBox.min.x) / 2, -.22, .18);
+sub.add(new THREE.Mesh(subGeo, new THREE.MeshBasicMaterial({ color: 0xd8d8d8 })));
+sub.position.set(1.8, -4.4, .5); scene.add(sub);
+
+// ---------- post ----------
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), .9, .5, .85);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+
+// ---------- timeline ----------
+window.renderFrame = (t, thumb = false) => {
+  grid.position.z = (t * 6) % 2;
+  stars.rotation.y = t * .02;
+  cubes.children.forEach(c => { const u = c.userData; c.rotation.set(t * u.sx, t * u.sy, 0); c.position.y = u.y0 + Math.sin(t * .7 + u.ph) * .4; });
+
+  const look = new THREE.Vector3();
+  let flash = 0;
+  const segIdx = Math.floor((t - INTRO) / SEG);
+  const inSeg = t >= INTRO && t < OUTRO_START;
+
+  // ----- camera -----
+  if (t < 2.7) {
+    const k = easeInOutCubic(seg(t, 0, 2.7));
+    camera.position.set(Math.sin(t * .6) * 1.2 * (1 - k), lerp(3, .6, k), lerp(24, 11, k));
+    look.set(0, .6, 0);
+  } else if (t < INTRO) {
+    const k = easeInOutCubic(seg(t, 2.7, 4));
+    const r = lerp(11, 15.5, k), a = Math.sin((t - 4) * .35) * .1;
+    camera.position.set(Math.sin(a) * r, .6, Math.cos(a) * r);
+    look.set(lerp(0, -.2, k), lerp(.6, -.1, k), 0);
+  } else if (inSeg) {
+    const u = t - INTRO - segIdx * SEG, dir = segIdx % 2 ? 1 : -1;
+    const k = easeOutCubic(seg(u, 0, 1.3));
+    const a = dir * lerp(.3, .07, k) - dir * u * .012;
+    const r = lerp(17.5, 14.2, k);
+    camera.position.set(Math.sin(a) * r, lerp(1.8, .4, k), Math.cos(a) * r);
+    look.set(.2, -.1, 0);
+  } else {
+    const u = t - OUTRO_START;
+    const k = easeInOutCubic(seg(u, 0, 1.5));
+    const a = Math.sin(u * .35) * .1;
+    const r = lerp(18, 15.5, k);
+    camera.position.set(Math.sin(a) * r, .6, Math.cos(a) * r);
+    look.set(-.3, -.5, 0);
+  }
+  camera.lookAt(look);
+
+  // ----- intro -----
+  const hk = seg(t, .2, .9), ho = seg(t, 2.35, 2.8);
+  hook.visible = t < 2.8;
+  hook.material.opacity = easeOutCubic(hk) * (1 - ho);
+  hook.scale.setScalar(tiny(lerp(.7, 1, easeOutBack(hk)) * (1 + ho * .8)));
+  flash += Math.max(0, 1 - Math.abs(t - 2.85) / .22);
+  animLetters(introTop, t, 3.3, .12, .8, 6.35, 1);
+  animLetters(introSub, t, 3.8, .07, .7, 6.4, 1);
+  const itk = easeOutCubic(seg(t, 5.2, 5.9)) * (1 - seg(t, 6.3, 6.6));
+  introTag.material.opacity = itk; introTag.visible = itk > 0;
+  introTag.position.y = lerp(-2.2, -1.8, itk);
+  thumbBadge.visible = thumb;
+
+  // ----- Tux (intro + outro) -----
+  let ts = 0, tx = t < INTRO ? -6.4 : -5.2, ty = -.6;
+  if (t < INTRO) { const k = seg(t, 2.9, 4.2); ts = easeOutBack(k) * (1 - easeInCubic(seg(t, 6.3, 6.8))); ty = lerp(-6, -.6, easeOutCubic(k)); tux.rotation.y = (1 - easeOutCubic(k)) * Math.PI * 4 + Math.sin(t * .9) * .25; }
+  else if (t >= OUTRO_START) { const k = seg(t, OUTRO_START + .9, OUTRO_START + 2.3); ts = easeOutBack(k); ty = lerp(-6, -.6, easeOutCubic(k)); tx = -5.2; tux.rotation.y = (1 - easeOutCubic(k)) * Math.PI * 4 + Math.sin(t * .9) * .25; }
+  tuxRoot.visible = ts > 0.001;
+  tuxRoot.scale.setScalar(tiny(ts));
+  tuxRoot.position.set(tx, ty + Math.sin(t * 2.2) * .1, 0);
+  ring.rotation.set(Math.PI / 2 + Math.sin(t) * .3, t * .8, 0);
+  ring2.rotation.set(Math.PI / 2.3, -t * 1.1, Math.cos(t) * .3);
+  if (thumb) { ring.rotation.set(1.25, .3, .2); ring2.rotation.set(1.1, -.5, -.3); tux.rotation.y = .25; }
+  const wave = seg(t, OUTRO_START + 3.4, OUTRO_START + 5.8);
+  wingR.rotation.z = .35 + (wave > 0 && wave < 1 ? (1.6 + Math.sin(wave * Math.PI * 6) * .45) * Math.sin(wave * Math.PI) : 0);
+  wingL.rotation.z = -.35 - Math.sin(t * 2) * .05;
+
+  // ----- command segments -----
+  COMMANDS.forEach((C, i) => {
+    const s0 = INTRO + i * SEG, u = t - s0;
+    const active = u > -.1 && u < SEG + .1;
+    animLetters(C.num, t, s0 + .15, .08, .6, s0 + 5.9);
+    animLetters(C.word, t, s0 + .3, .1, .75, s0 + 5.95, 1);
+    const lk = easeOutCubic(seg(u, .9, 1.5)) * (1 - seg(u, 5.9, 6.25));
+    C.label.visible = active && lk > 0; C.label.material.opacity = lk; C.label.position.x = LEFT + 3.5 + (1 - lk) * -1;
+    const sk = easeOutCubic(seg(u, .7, 1.2)) * (1 - seg(u, 6.0, 6.35));
+    C.subPlane.visible = active && sk > 0; C.subPlane.material.opacity = sk;
+    C.subPlane.position.y = -.98 - (1 - sk) * .1;
+    if (active) flash += Math.max(0, 1 - Math.abs(u - .3) / .18) * .35;
+  });
+  // terminal
+  term.visible = inSeg;
+  if (inSeg) {
+    const C = COMMANDS[segIdx], u = t - INTRO - segIdx * SEG;
+    const k = easeOutBack(seg(u, .35, 1.05)), o = easeInCubic(seg(u, 5.85, 6.35));
+    term.scale.setScalar(tiny(1.2 * k * (1 - o)));
+    term.position.set(4.3 + o * 6, .35 + Math.sin(t * 1.5) * .06, 0);
+    term.rotation.set(0, -.22 + (1 - k) * 1.2 - o * .8, 0);
+    drawTerminal(C.term, u, `#${C.n}  ${C.cmd} — ${P.slice(0, -3)}`);
+    // underline under the command word
+    const bk = easeOutCubic(seg(u, 1.0, 1.6)) * (1 - seg(u, 5.9, 6.2));
+    bar.visible = bk > 0; bar.scale.x = tiny(bk * 6.5);
+    bar.position.set(LEFT + bar.scale.x / 2, -1.85, 0);
+  }
+
+  // ----- outro -----
+  const os = OUTRO_START;
+  if (t >= os) {
+    animLetters(outW1, t, os + 1.4, .1, .8, null, 1);
+    animLetters(outW2, t, os + 2.0, .14, .9, null, 1);
+    const bk = easeOutCubic(seg(t, os + 2.6, os + 3.2));
+    bar.visible = bk > 0; bar.scale.x = tiny(bk * 8.6); bar.position.set(-2.4 + bar.scale.x / 2, -2.35, 0);
+  } else { [...outW1, ...outW2].forEach(m => m.visible = false); }
+  if (t >= INTRO && !inSeg && t < os) bar.visible = false;
+  if (t < INTRO) bar.visible = false;
+  flash += t > os ? Math.max(0, 1 - Math.abs(t - (os + 2.6)) / .3) * .6 : 0;
+  const otk = easeOutCubic(seg(t, os + 2.9, os + 3.5));
+  outTag.visible = otk > 0; outTag.material.opacity = otk; outTag.position.y = lerp(-3.4, -3.0, otk);
+  const oak = easeOutCubic(seg(t, os + .2, os + .9));
+  outAsk.visible = oak > 0; outAsk.material.opacity = oak; outAsk.scale.setScalar(tiny(lerp(.8, 1, easeOutBack(oak))));
+  const sbk = seg(t, os + 3.5, os + 4.2);
+  sub.visible = sbk > 0;
+  sub.scale.setScalar(tiny(easeOutBack(sbk) * (t > os + 4.4 ? 1 + Math.sin((t - os - 4.4) * 6) * .04 : 1)));
+
+  water.visible = t > 3;
+  renderer.toneMappingExposure = (1 + flash * 2.2) * (1 - seg(t, window.DURATION - .5, window.DURATION)) * seg(t, 0, .4);
+  bloom.strength = .9 + flash * 1.2;
+  matOrange.emissiveIntensity = 1 + Math.sin(t * 3) * .3;
+  composer.render();
+};
+window.READY = true;
+</script>
+</body></html>
