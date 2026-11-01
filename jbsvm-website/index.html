@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeet Bahadur Singh Vidhi Mahavidyalay | LL.B 3 Year Course | Sultanpur</title>
+<meta name="description" content="Jeet Bahadur Singh Vidhi Mahavidyalay, Garavpur, Lambhua, Sultanpur (U.P.) – LL.B 3 Year Course, affiliated to Dr. Ram Manohar Lohiya Avadh University, Ayodhya and recognized by Bar Council of India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b2545;--navy2:#13315c;--gold:#c9a227;--gold2:#e8c547;--light:#f6f4ee;--text:#2b2b2b;--muted:#5f6b7a}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);background:#fff;line-height:1.7}
+h1,h2,h3,h4{font-family:'Merriweather',serif;color:var(--navy)}
+a{color:inherit;text-decoration:none}
+.container{width:min(1180px,92%);margin:auto}
+/* top bar */
+.topbar{background:var(--navy);color:#dfe6ef;font-size:.85rem;padding:6px 0}
+.topbar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.topbar span b{color:var(--gold2)}
+/* header */
+header{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08);position:sticky;top:0;z-index:50}
+.head{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:62px;height:62px;border-radius:50%;background:radial-gradient(circle,var(--navy2),var(--navy));border:3px solid var(--gold);display:grid;place-items:center;flex-shrink:0}
+.logo svg{width:34px;height:34px;fill:var(--gold2)}
+.brand h1{font-size:1.15rem;line-height:1.25}
+.brand p{font-size:.78rem;color:var(--muted)}
+nav ul{display:flex;list-style:none;gap:4px}
+nav a{padding:8px 12px;border-radius:6px;font-weight:500;font-size:.92rem;color:var(--navy);transition:.2s}
+nav a:hover{background:var(--navy);color:#fff}
+.menu-btn{display:none;background:none;border:0;font-size:1.8rem;color:var(--navy);cursor:pointer}
+/* hero */
+.hero{background:linear-gradient(120deg,rgba(11,37,69,.94),rgba(19,49,92,.86)),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><path d="M40 8l6 14h-12zM20 30h40v4H20zM24 36h4v28h-4zM38 36h4v28h-4zM52 36h4v28h-4zM18 66h44v4H18z" fill="%23c9a227" opacity=".08"/></svg>');color:#fff;padding:90px 0 100px;text-align:center}
+.hero .tag{display:inline-block;border:1px solid var(--gold);color:var(--gold2);padding:5px 16px;border-radius:30px;font-size:.85rem;letter-spacing:1px;margin-bottom:18px}
+.hero h2{color:#fff;font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:900;margin-bottom:10px}
+.hero h3{color:var(--gold2);font-size:clamp(1.1rem,2.4vw,1.6rem);font-weight:400;margin-bottom:16px}
+.hero p{max-width:720px;margin:0 auto 30px;color:#d6dde8}
+.btn{display:inline-block;padding:13px 30px;border-radius:6px;font-weight:600;transition:.25s;margin:6px}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{border:2px solid #fff;color:#fff}
+.btn-outline:hover{background:#fff;color:var(--navy)}
+/* badges */
+.badges{margin-top:-50px;position:relative;z-index:5}
+.badges .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.badge{background:#fff;border-radius:12px;padding:26px;box-shadow:0 10px 30px rgba(11,37,69,.12);border-top:4px solid var(--gold);text-align:center}
+.badge .ic{font-size:2rem;margin-bottom:8px}
+.badge h4{font-size:1rem;margin-bottom:4px}
+.badge p{font-size:.9rem;color:var(--muted)}
+/* sections */
+section{padding:80px 0}
+.title{text-align:center;margin-bottom:50px}
+.title small{color:var(--gold);font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
+.title h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-top:6px}
+.title .line{width:70px;height:3px;background:var(--gold);margin:14px auto 0}
+.alt{background:var(--light)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about-img{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:16px;min-height:360px;display:grid;place-items:center;color:var(--gold2);text-align:center;padding:30px;position:relative;overflow:hidden}
+.about-img svg{width:130px;fill:var(--gold2);opacity:.9}
+.about-img h4{color:#fff;margin-top:14px;font-size:1.3rem}
+.about-img p{color:#cdd6e3;font-size:.9rem}
+.about h3{font-size:1.6rem;margin-bottom:14px}
+.about p{margin-bottom:14px;color:#444}
+.check{list-style:none;margin-top:10px}
+.check li{padding-left:28px;position:relative;margin-bottom:8px}
+.check li:before{content:"✔";position:absolute;left:0;color:var(--gold);font-weight:700}
+/* course */
+.course-card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.07);overflow:hidden;display:grid;grid-template-columns:320px 1fr}
+.course-side{background:var(--navy);color:#fff;padding:40px 30px}
+.course-side h3{color:var(--gold2);font-size:2rem}
+.course-side ul{list-style:none;margin-top:20px}
+.course-side li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;justify-content:space-between;gap:10px;font-size:.92rem}
+.course-side li b{color:var(--gold2)}
+.course-body{padding:40px}
+.course-body h4{margin:0 0 10px;font-size:1.15rem}
+.course-body p{color:#555;margin-bottom:18px}
+.subjects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.subjects span{background:var(--light);padding:9px 14px;border-radius:6px;font-size:.88rem;border-left:3px solid var(--gold)}
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.card{background:#fff;padding:30px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.06);transition:.3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 34px rgba(11,37,69,.14)}
+.card .ic{width:58px;height:58px;border-radius:12px;background:var(--navy);color:var(--gold2);display:grid;place-items:center;font-size:1.6rem;margin-bottom:16px}
+.card h4{margin-bottom:8px;font-size:1.08rem}
+.card p{color:var(--muted);font-size:.92rem}
+/* admission */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;counter-reset:s}
+.step{background:#fff;border-radius:14px;padding:30px 24px;position:relative;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.step:before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:24px;width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:700;display:grid;place-items:center;font-size:1.1rem}
+.step h4{margin:12px 0 8px}
+.step p{font-size:.92rem;color:var(--muted)}
+.notice{margin-top:40px;background:var(--navy);color:#fff;border-radius:14px;padding:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.notice h4{color:var(--gold2);font-size:1.3rem}
+/* management */
+.mgmt{display:flex;justify-content:center}
+.person{background:#fff;border-radius:16px;padding:36px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.08);max-width:420px;border-bottom:4px solid var(--gold)}
+.avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 18px;background:linear-gradient(135deg,var(--navy),var(--navy2));display:grid;place-items:center;color:var(--gold2);font-family:'Merriweather',serif;font-size:2.4rem;font-weight:900;border:4px solid var(--gold)}
+.person h4{font-size:1.3rem}
+.person .role{color:var(--gold);font-weight:600;margin-bottom:10px}
+.person p{color:var(--muted);font-size:.92rem;font-style:italic}
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:36px}
+.info-box{background:var(--navy);color:#fff;border-radius:16px;padding:36px}
+.info-box h3{color:var(--gold2);margin-bottom:20px}
+.info-item{display:flex;gap:14px;margin-bottom:20px}
+.info-item .ic{font-size:1.4rem}
+.info-item b{display:block;color:var(--gold2);font-size:.85rem;text-transform:uppercase;letter-spacing:1px}
+form{background:#fff;border-radius:16px;padding:36px;box-shadow:0 10px 30px rgba(0,0,0,.07)}
+form h3{margin-bottom:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input,textarea,select{width:100%;padding:12px 14px;border:1px solid #d5dbe3;border-radius:8px;font-family:inherit;font-size:.95rem;margin-bottom:14px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
+form button{border:0;cursor:pointer;width:100%;font-size:1rem}
+.map{margin-top:30px;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.map iframe{width:100%;height:340px;border:0;display:block}
+/* footer */
+footer{background:#071a33;color:#b8c3d3;padding:50px 0 0}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer h4{color:var(--gold2);margin-bottom:14px;font-size:1.05rem}
+footer ul{list-style:none}
+footer li{margin-bottom:8px;font-size:.92rem}
+footer a:hover{color:var(--gold2)}
+.copy{border-top:1px solid rgba(255,255,255,.1);margin-top:36px;padding:18px 0;text-align:center;font-size:.85rem}
+.marquee{background:var(--gold);color:var(--navy);font-weight:600;padding:8px 0;font-size:.92rem;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;padding-left:100%;animation:mq 28s linear infinite}
+@keyframes mq{to{transform:translateX(-100%)}}
+.totop{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:.3s}
+.totop.show{opacity:1;pointer-events:auto}
+@media(max-width:900px){
+ .menu-btn{display:block}
+ nav{position:absolute;top:100%;left:0;right:0;background:#fff;box-shadow:0 8px 16px rgba(0,0,0,.1);display:none}
+ nav.open{display:block}
+ nav ul{flex-direction:column;padding:10px}
+ .about,.contact,.course-card{grid-template-columns:1fr}
+ .fgrid{grid-template-columns:1fr}
+ .row{grid-template-columns:1fr}
+ .brand h1{font-size:.95rem}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="container">
+  <span>📍 Garavpur, Lambhua, Distt. Sultanpur (U.P.) – 222302</span>
+  <span>Affiliated: <b>Dr. RML Avadh University, Ayodhya</b> | Recognized: <b>Bar Council of India</b></span>
+</div></div>
+
+<header><div class="container head">
+  <a href="#home" class="brand">
+    <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2l1.5 3h-3zM11 5h2v2h4l-2.5 6a3 3 0 0 1-5 0L7 7h4zM5 9l-2.5 6a3 3 0 0 0 5 0zm14 0l-2.5 6a3 3 0 0 0 5 0zM11 7v13H7v2h10v-2h-4V7z"/></svg></div>
+    <div><h1>Jeet Bahadur Singh Vidhi Mahavidyalay</h1><p>LL.B 3 Year Course • Garavpur, Lambhua, Sultanpur</p></div>
+  </a>
+  <button class="menu-btn" aria-label="Menu" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+  <nav><ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#course">Course</a></li>
+    <li><a href="#facilities">Facilities</a></li>
+    <li><a href="#admission">Admission</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul></nav>
+</div></header>
+
+<div class="marquee"><span>📢 Admissions Open for LL.B 3 Year Course (Session 2026–27) &nbsp; • &nbsp; Affiliated to Dr. Ram Manohar Lohiya Avadh University, Ayodhya &nbsp; • &nbsp; Recognized by Bar Council of India, New Delhi &nbsp; • &nbsp; Contact the college office for admission forms & details</span></div>
+
+<section class="hero" id="home"><div class="container">
+  <div class="tag">⚖ JUSTICE • KNOWLEDGE • INTEGRITY</div>
+  <h2>Jeet Bahadur Singh Vidhi Mahavidyalay</h2>
+  <h3>जीत बहादुर सिंह विधि महाविद्यालय</h3>
+  <p>Garavpur, Lambhua, Distt. Sultanpur (U.P.) – 222302. Shaping skilled advocates and responsible citizens through quality legal education in the LL.B 3 Year Course.</p>
+  <a href="#admission" class="btn btn-gold">Apply for Admission</a>
+  <a href="#course" class="btn btn-outline">View Course</a>
+</div></section>
+
+<div class="badges"><div class="container grid">
+  <div class="badge"><div class="ic">🎓</div><h4>LL.B 3 Year Course</h4><p>Bachelor of Laws – Professional Degree</p></div>
+  <div class="badge"><div class="ic">🏛</div><h4>Affiliated</h4><p>Dr. Ram Manohar Lohiya Avadh University, Ayodhya (U.P.)</p></div>
+  <div class="badge"><div class="ic">⚖</div><h4>Recognized</h4><p>Bar Council of India, New Delhi</p></div>
+</div></div>
+
+<section id="about"><div class="container">
+  <div class="title"><small>Welcome</small><h2>About Our College</h2><div class="line"></div></div>
+  <div class="about">
+    <div class="about-img">
+      <div>
+        <svg viewBox="0 0 24 24"><path d="M12 1 2 6v2h20V6zM4 10v8h3v-8zm6.5 0v8h3v-8zM17 10v8h3v-8zM2 20v3h20v-3z"/></svg>
+        <h4>Excellence in Legal Education</h4>
+        <p>Garavpur, Lambhua, Sultanpur</p>
+      </div>
+    </div>
+    <div>
+      <h3>Jeet Bahadur Singh Vidhi Mahavidyalay</h3>
+      <p>Jeet Bahadur Singh Vidhi Mahavidyalay, situated at Garavpur, Lambhua in District Sultanpur (Uttar Pradesh), is dedicated to providing quality legal education to students of the region. The college offers the <b>LL.B 3 Year Course</b> and is affiliated to <b>Dr. Ram Manohar Lohiya Avadh University, Ayodhya (U.P.)</b> and recognized by the <b>Bar Council of India, New Delhi</b>.</p>
+      <p>Our aim is to prepare students for careers at the Bar, in the judiciary, in public service and in the corporate world, with a strong foundation in law, ethics and social justice.</p>
+      <ul class="check">
+        <li>Experienced and dedicated faculty</li>
+        <li>Moot court & practical legal training</li>
+        <li>Well-stocked law library</li>
+        <li>Legal aid & awareness programmes</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="course" class="alt"><div class="container">
+  <div class="title"><small>Programme</small><h2>LL.B – 3 Year Course</h2><div class="line"></div></div>
+  <div class="course-card">
+    <div class="course-side">
+      <h3>LL.B</h3><p>Bachelor of Laws</p>
+      <ul>
+        <li>Duration <b>3 Years</b></li>
+        <li>Semesters <b>6</b></li>
+        <li>Eligibility <b>Graduation</b></li>
+        <li>University <b>RMLAU, Ayodhya</b></li>
+        <li>Approval <b>BCI</b></li>
+      </ul>
+    </div>
+    <div class="course-body">
+      <h4>Course Overview</h4>
+      <p>The LL.B 3 Year Course is a professional degree for graduates who wish to build a career in law. After completing the course, students can enrol as advocates with the State Bar Council and appear for judicial services and other competitive examinations.</p>
+      <h4>Eligibility</h4>
+      <p>Graduation in any discipline from a recognized university, with minimum marks as prescribed by the Bar Council of India and Dr. Ram Manohar Lohiya Avadh University, Ayodhya.</p>
+      <h4>Key Subjects</h4>
+      <div class="subjects">
+        <span>Constitutional Law</span><span>Law of Contract</span><span>Law of Torts</span>
+        <span>Family Law</span><span>Criminal Law (BNS)</span><span>Criminal Procedure (BNSS)</span>
+        <span>Law of Evidence (BSA)</span><span>Property Law</span><span>Jurisprudence</span>
+        <span>Administrative Law</span><span>Labour Law</span><span>Environmental Law</span>
+        <span>Civil Procedure Code</span><span>Professional Ethics</span><span>Moot Court & Drafting</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="facilities"><div class="container">
+  <div class="title"><small>Campus</small><h2>Our Facilities</h2><div class="line"></div></div>
+  <div class="cards">
+    <div class="card"><div class="ic">📚</div><h4>Law Library</h4><p>A rich collection of law books, bare acts, journals and reference material for students and faculty.</p></div>
+    <div class="card"><div class="ic">⚖</div><h4>Moot Court Hall</h4><p>Practical training through moot courts, mock trials and court-room advocacy exercises.</p></div>
+    <div class="card"><div class="ic">🤝</div><h4>Legal Aid Clinic</h4><p>Students serve the community through legal aid camps and legal awareness programmes.</p></div>
+    <div class="card"><div class="ic">🏫</div><h4>Spacious Classrooms</h4><p>Well-ventilated, well-lit classrooms that support effective teaching and learning.</p></div>
+    <div class="card"><div class="ic">💻</div><h4>Computer Lab</h4><p>Access to computers and online legal research for modern legal education.</p></div>
+    <div class="card"><div class="ic">👨‍🏫</div><h4>Qualified Faculty</h4><p>Experienced teachers and visiting advocates who guide students in theory and practice.</p></div>
+  </div>
+</div></section>
+
+<section id="admission" class="alt"><div class="container">
+  <div class="title"><small>Join Us</small><h2>Admission Process</h2><div class="line"></div></div>
+  <div class="steps">
+    <div class="step"><h4>Enquiry</h4><p>Visit the college office or fill the enquiry form below to get admission details.</p></div>
+    <div class="step"><h4>Application Form</h4><p>Collect and fill the admission form with all required details.</p></div>
+    <div class="step"><h4>Document Submission</h4><p>Submit mark sheets, graduation degree, TC, character certificate, photos and ID proof.</p></div>
+    <div class="step"><h4>Confirmation</h4><p>Pay the fee and confirm your seat as per university guidelines.</p></div>
+  </div>
+  <div class="notice">
+    <div><h4>Admissions Open – Session 2026–27</h4><p>LL.B 3 Year Course | Limited Seats</p></div>
+    <a href="#contact" class="btn btn-gold">Enquire Now</a>
+  </div>
+</div></section>
+
+<section id="management"><div class="container">
+  <div class="title"><small>Leadership</small><h2>Management</h2><div class="line"></div></div>
+  <div class="mgmt">
+    <div class="person">
+      <div class="avatar">KBS</div>
+      <h4>Dr. Kunwar Bahadur Singh</h4>
+      <div class="role">Manager</div>
+      <p>"Our mission is to provide quality legal education to the youth of rural Uttar Pradesh and to prepare them to serve society with justice and integrity."</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="contact" class="alt"><div class="container">
+  <div class="title"><small>Get in Touch</small><h2>Contact Us</h2><div class="line"></div></div>
+  <div class="contact">
+    <div class="info-box">
+      <h3>College Address</h3>
+      <div class="info-item"><div class="ic">📍</div><div><b>Address</b>Jeet Bahadur Singh Vidhi Mahavidyalay,<br>Garavpur, Lambhua, Distt. Sultanpur (U.P.) – 222302</div></div>
+      <div class="info-item"><div class="ic">🏛</div><div><b>Affiliated By</b>Dr. Ram Manohar Lohiya Avadh University, Ayodhya (U.P.)</div></div>
+      <div class="info-item"><div class="ic">⚖</div><div><b>Recognized By</b>Bar Council of India, New Delhi</div></div>
+      <div class="info-item"><div class="ic">👤</div><div><b>Manager</b>Dr. Kunwar Bahadur Singh</div></div>
+    </div>
+    <form onsubmit="return sendEnquiry(event)">
+      <h3>Admission Enquiry</h3>
+      <div class="row"><input id="n" placeholder="Full Name" required><input id="m" placeholder="Mobile Number" pattern="[0-9]{10}" title="10 digit mobile number" required></div>
+      <div class="row"><input id="e" type="email" placeholder="Email (optional)"><select id="q"><option>LL.B 3 Year Course</option><option>General Enquiry</option></select></div>
+      <textarea id="msg" rows="4" placeholder="Your Message"></textarea>
+      <button class="btn btn-gold" type="submit">Submit Enquiry</button>
+      <p id="ok" style="display:none;color:green;margin-top:10px;font-weight:500">✔ Thank you! Your enquiry has been noted. Please also visit the college office for admission.</p>
+    </form>
+  </div>
+  <div class="map"><iframe loading="lazy" title="Location map" src="https://maps.google.com/maps?q=Lambhua,%20Sultanpur,%20Uttar%20Pradesh&z=12&output=embed"></iframe></div>
+</div></section>
+
+<footer><div class="container">
+  <div class="fgrid">
+    <div><h4>Jeet Bahadur Singh Vidhi Mahavidyalay</h4><p>Garavpur, Lambhua, Distt. Sultanpur (U.P.) – 222302<br>LL.B 3 Year Course<br>Affiliated: Dr. Ram Manohar Lohiya Avadh University, Ayodhya (U.P.)<br>Recognized: Bar Council of India, New Delhi</p></div>
+    <div><h4>Quick Links</h4><ul><li><a href="#about">About</a></li><li><a href="#course">Course</a></li><li><a href="#facilities">Facilities</a></li><li><a href="#admission">Admission</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><h4>Useful Links</h4><ul><li><a href="https://www.rmlau.ac.in" target="_blank" rel="noopener">RML Avadh University</a></li><li><a href="https://www.barcouncilofindia.org" target="_blank" rel="noopener">Bar Council of India</a></li></ul></div>
+  </div>
+  <div class="copy">© <span id="yr"></span> Jeet Bahadur Singh Vidhi Mahavidyalay, Sultanpur. All Rights Reserved.</div>
+</div></footer>
+
+<a href="#home" class="totop" id="totop">↑</a>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector('nav').classList.remove('open')));
+window.addEventListener('scroll',()=>document.getElementById('totop').classList.toggle('show',scrollY>500));
+function sendEnquiry(ev){ev.preventDefault();
+ const d={name:n.value,mobile:m.value,email:e.value,course:q.value,message:msg.value,time:new Date().toISOString()};
+ try{const l=JSON.parse(localStorage.getItem('enq')||'[]');l.push(d);localStorage.setItem('enq',JSON.stringify(l))}catch(_){}
+ document.getElementById('ok').style.display='block';ev.target.reset();return false}
+</script>
+</body>
+</html>
